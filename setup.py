@@ -1,10 +1,15 @@
-
 from setuptools import setup, find_packages, Extension
 from Cython.Build import cythonize
 
+from numpy.distutils.system_info import get_info
+info_dict = get_info('mkl')
+
 extensions = Extension(
             name='cyvml.cyvml',
-            sources = ["src/cyvml/cyvml.pyx"]
+            sources = ["src/cyvml/cyvml.pyx"],
+            libraries = info_dict['libraries'],
+            include_dirs = info_dict['include_dirs'],
+            library_dirs = info_dict['library_dirs'],
     )
 extensions = cythonize(extensions, compiler_directives={'language_level' : 3})
 
