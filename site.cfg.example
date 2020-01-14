@@ -1,0 +1,7 @@
+# if numpy-version isn't found during the installation or another version should be used
+# this file should be renamed to  'site.cfg'  and the needed information about mkl-installation added:
+
+[mkl]
+libraries = mkl_rt, pthread
+library_dirs = /home/ed/anaconda37/lib
+
