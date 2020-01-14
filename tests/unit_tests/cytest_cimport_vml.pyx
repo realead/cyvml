@@ -3,6 +3,7 @@ import numpy as np
 
 
 cimport cyvml.cyvml as vml
+import cyvml.cyvml as pyvml
 
 
 class CimportCyvmlTester(unittest.TestCase): 
@@ -34,3 +35,9 @@ class CimportCyvmlTester(unittest.TestCase):
         self.assertEqual(vml.cy_get_vml_max_num_threads(), 1)
         self.assertEqual(vml.cy_set_vml_num_threads(2), 1)
         self.assertEqual(vml.cy_get_vml_max_num_threads(), 2)
+
+    def test_get_set_mode(self):
+       vml.cy_vmlSetMode(pyvml.PY_VML_EP)
+       self.assertEqual(vml.cy_vmlGetMode()&3, 3)
+       vml.cy_vmlSetMode(pyvml.PY_VML_LA)
+       self.assertEqual(vml.cy_vmlGetMode()&3, 1)

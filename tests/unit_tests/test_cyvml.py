@@ -39,3 +39,10 @@ class cyvmlTester(unittest.TestCase):
       self.assertEqual(vml.py_set_vml_num_threads(2), 1)
       self.assertEqual(vml.py_get_vml_max_num_threads(), 2)
 
+   def test_get_set_mode(self):
+      vml.py_vmlSetMode(vml.PY_VML_EP)
+      self.assertEqual(vml.py_vmlGetMode()&3, 3)
+      vml.py_vmlSetMode(vml.PY_VML_LA)
+      self.assertEqual(vml.py_vmlGetMode()&3, 1)
+
+

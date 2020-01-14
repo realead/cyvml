@@ -57,6 +57,8 @@ To adjust the number of vml-threads, use `cy/py_set_vml_num_threads` and `cy/py_
    
 The cost of calling `cy_get_vml_max_num_threads` followed by two `cy_set_vml_num_threads` (which corresponds to querying the current state, setting it to a new number and restoring) is about 100 ns (see `cyvml.onoff_multithreading`).
 
+There are also `cy/py_vmlSetMode` and `cy/py_vmlGetMode`. Call of `vmlSetMode` has cost of about 50 ns.
+
 ## Testing
 
 For testing of the local version run:

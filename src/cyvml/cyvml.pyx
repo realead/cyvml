@@ -1,4 +1,6 @@
 ## service functions:
+
+## threading controll:
 cdef extern from *:
     """
     #define MKL_VML  3 
@@ -34,10 +36,65 @@ def onoff_multithreading(int n, int nthreads):
         cy_set_vml_num_threads(nthreads);
         cy_set_vml_num_threads(old);
     cy_set_vml_num_threads(orig);
-    
-        
-        
 
+
+
+#
+cdef extern from *:
+    """
+    #define VML_LA 0x00000001
+    #define VML_HA 0x00000002
+    #define VML_EP 0x00000003
+    #define VML_ERRMODE_IGNORE   0x00000100
+    #define VML_ERRMODE_ERRNO    0x00000200
+    #define VML_ERRMODE_STDERR   0x00000400
+    #define VML_ERRMODE_EXCEPT   0x00000800
+    #define VML_ERRMODE_CALLBACK 0x00001000
+    #define VML_ERRMODE_DEFAULT  \
+    VML_ERRMODE_ERRNO | VML_ERRMODE_CALLBACK | VML_ERRMODE_EXCEPT
+
+    unsigned int vmlSetMode(unsigned int);
+    unsigned int vmlGetMode(void);
+    """
+    unsigned int vmlSetMode(unsigned int newMode)
+    unsigned int vmlGetMode()
+    const unsigned int VML_LA
+    const unsigned int VML_HA
+    const unsigned int VML_EP
+    const unsigned int VML_ERRMODE_IGNORE 
+    const unsigned int VML_ERRMODE_ERRNO 
+    const unsigned int VML_ERRMODE_STDERR
+    const unsigned int VML_ERRMODE_EXCEPT 
+    const unsigned int VML_ERRMODE_CALLBACK
+    const unsigned int VML_ERRMODE_DEFAULT
+
+PY_VML_LA = VML_LA
+PY_VML_HA = VML_HA
+PY_VML_EP = VML_EP
+PY_VML_ERRMODE_IGNORE  = VML_ERRMODE_IGNORE
+PY_VML_ERRMODE_ERRNO  =  VML_ERRMODE_ERRNO
+PY_VML_ERRMODE_STDERR = VML_ERRMODE_STDERR
+PY_VML_ERRMODE_EXCEPT = VML_ERRMODE_EXCEPT
+PY_VML_ERRMODE_CALLBACK = VML_ERRMODE_CALLBACK
+PY_VML_ERRMODE_DEFAULT = VML_ERRMODE_DEFAULT
+
+cdef int cy_vmlSetMode(unsigned int newmode):
+    return vmlSetMode(newmode)
+def py_vmlSetMode(unsigned int newmode):
+    return cy_vmlSetMode(newmode)
+
+cdef int cy_vmlGetMode():
+    return vmlGetMode()
+def py_vmlGetMode():
+    return cy_vmlGetMode()
+
+#testing overhead:
+def onoff_mode(int n):
+    cdef int i
+    for i in range(n):
+        old = cy_vmlSetMode(2);
+        cy_vmlSetMode(old);
+    
 
 ## other functions:
 cdef extern from *:
