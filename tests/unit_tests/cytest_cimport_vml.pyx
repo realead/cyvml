@@ -26,3 +26,11 @@ class CimportCyvmlTester(unittest.TestCase):
         cdef double x = 1.0
         vml.cy_vdLn(1, &x, &x)
         self.assertAlmostEqual(x, 0.0)
+
+
+# should be last...
+    def test_get_set_threads(self):
+        self.assertEqual(vml.cy_set_vml_num_threads(1), 1)
+        self.assertEqual(vml.cy_get_vml_max_num_threads(), 1)
+        self.assertEqual(vml.cy_set_vml_num_threads(2), 1)
+        self.assertEqual(vml.cy_get_vml_max_num_threads(), 2)

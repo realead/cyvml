@@ -29,3 +29,13 @@ class cyvmlTester(unittest.TestCase):
       y = np.array([42.42], dtype=np.float64)
       vml.py_vdLn(x,y)
       self.assertAlmostEqual(y[0], 0.0)
+
+
+
+# should be last...
+   def test_get_set_threads(self):
+      self.assertEqual(vml.py_set_vml_num_threads(1), 1)
+      self.assertEqual(vml.py_get_vml_max_num_threads(), 1)
+      self.assertEqual(vml.py_set_vml_num_threads(2), 1)
+      self.assertEqual(vml.py_get_vml_max_num_threads(), 2)
+

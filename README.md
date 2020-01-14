@@ -51,6 +51,12 @@ The functionality can be used also from pure Python with anything supporting buf
     y = np.array([42.42], dtype=np.float64)
     vml.py_vdCos(x,y)
 
+### Service functions:
+
+To adjust the number of vml-threads, use `cy/py_set_vml_num_threads` and `cy/py_get_vml_max_num_threads` which are aliases for `MKL_Domain_Set_Num_Threads` and `MKL_Domain_Get_Max_Threads` with domain already set to `MKL_VML`.
+   
+The cost of calling `cy_get_vml_max_num_threads` followed by two `cy_set_vml_num_threads` (which corresponds to querying the current state, setting it to a new number and restoring) is about 100 ns (see `cyvml.onoff_multithreading`).
+
 ## Testing
 
 For testing of the local version run:
