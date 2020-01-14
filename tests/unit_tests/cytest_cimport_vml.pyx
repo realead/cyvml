@@ -21,3 +21,8 @@ class CimportCyvmlTester(unittest.TestCase):
         cdef double x = 1.0
         vml.cy_vdExp(1, &x, &x)
         self.assertAlmostEqual(x, np.e)
+
+    def test_cimport_vdLn(self):
+        cdef double x = 1.0
+        vml.cy_vdLn(1, &x, &x)
+        self.assertAlmostEqual(x, 0.0)
