@@ -53,11 +53,23 @@ The functionality can be used also from pure Python with anything supporting buf
 
 ### Service functions:
 
-To adjust the number of vml-threads, use `cy/py_set_vml_num_threads` and `cy/py_get_vml_max_num_threads` which are aliases for `MKL_Domain_Set_Num_Threads` and `MKL_Domain_Get_Max_Threads` with domain already set to `MKL_VML`.
-   
+ * To adjust the number of vml-threads, use `cy/py_set_vml_num_threads` and `cy/py_get_vml_max_num_threads` which are aliases for `MKL_Domain_Set_Num_Threads` and `MKL_Domain_Get_Max_Threads` with domain already set to `MKL_VML`.
+
+ * However, it might be wiser to use `mkl_set_num_threads_local` as it doesn't affect other parts of program.
+
+ * There are also `cy/py_vmlSetMode` and `cy/py_vmlGetMode`.
+
+## Experiments
+
+Once cyvml is installed, the scripts from `tests/experiments` can be used.
+
+#### costs of `cy_get_vml_max_num_threads`
+
 The cost of calling `cy_get_vml_max_num_threads` followed by two `cy_set_vml_num_threads` (which corresponds to querying the current state, setting it to a new number and restoring) is about 100 ns (see `cyvml.onoff_multithreading`).
 
-There are also `cy/py_vmlSetMode` and `cy/py_vmlGetMode`. Call of `vmlSetMode` has cost of about 50 ns.
+#### costs of  setting/getting mode:
+
+   Call of `vmlSetMode` has cost of about 50 ns.
 
 ## Testing
 

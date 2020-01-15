@@ -28,7 +28,7 @@ def py_get_vml_max_num_threads():
     return cy_get_vml_max_num_threads()
 
 #testing overhead:
-def onoff_multithreading(int n, int nthreads):
+def onoff_multithreading(int n, int nthreads=5):
     cdef int orig = cy_get_vml_max_num_threads()
     cdef int i, old
     for i in range(n):
