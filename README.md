@@ -4,7 +4,16 @@ cython-wrapper for intel's vml
 
 ## About
 
-A cython wrapper to experiment with Intel's VML. It works out of the box for Anaconda-Distribution with MKL on Linux. On Windows one needs to provide path to *.lib-files even for Anaconda-Distribution, as it doesn't ship them. One also has to take care of dlls being on the PATH.
+A cython wrapper to experiment with Intel's VML. It works out of the box for Anaconda-Distribution with MKL on Linux. MKL-includes aren't needed - `cyvml` has the necessary parts of the API (even if it is somewhat dirty and brittle).
+
+
+On Windows one needs to provide path to *.lib-files even for Anaconda-Distribution, as it doesn't ship them. One also has to take care of dlls being on the PATH.
+
+For Anaconda distribution
+
+   conda install mkl-devel
+
+might be the easiest solution to get all what is needed.
 
 Not yet all functions are wrapped - they will be added as needed.
 
