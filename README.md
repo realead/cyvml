@@ -94,15 +94,15 @@ Due to the signature only two calls are needed to set/reset local number. This a
 
 Depending on the function MKL chooses to run in parallel, depending on the size of the vector:
 
-Function    | multithreading
---------------------------
-cos, sin    |  5000-6000
-acos, asin  |  4000-5000
-tan, atan   |  2000-3000
-exp, ln     |  7000-8000
-mul         |  never?
+    Function    | multithreading
+    --------------------------
+    cos, sin    |  5000-6000
+    acos, asin  |  4000-5000
+    tan, atan   |  2000-3000
+    exp, ln     |  7000-8000
+    mul         |  never?
 
-Here are the runtime:
+Here are the runtimes, where knick means that the multi-threading is used:
 
 ![2](img/par_tan_vs_atan.png)
 
