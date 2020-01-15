@@ -128,6 +128,7 @@ cdef extern from *:
     void  vdAcos(MKL_INT n, const double *x, double *y);
     void  vdAsin(MKL_INT n, const double *x, double *y);
     void  vdAtan(MKL_INT n, const double *x, double *y);
+    void  vdMul(MKL_INT n, const double *a, double *b, double* r);
     """
     void vdExp(long long int n, const double *x, double *y)
     void vdLn(long long int n, const double *x, double *y)
@@ -137,6 +138,7 @@ cdef extern from *:
     void vdAsin(long long int n, const double *x, double *y)
     void vdAcos(long long int n, const double *x, double *y)
     void vdAtan(long long int n, const double *x, double *y)
+    void vdMul(long long int n, const double *a, double *b, double* r)
 
 
 cdef void cy_vdExp(long long int n, const double *x, double *y):
@@ -194,6 +196,13 @@ def py_vdAtan(const double[::1] x, double[::1] y):
     if len(x) != len(y):
         raise BufferError("Different buffer lengths")
     cy_vdAtan(len(x), &x[0], &y[0])
+
+cdef void cy_vdMul(long long int n, const double *a, double *b, double* r):
+    vdMul(n,a,b,r)
+def py_vdMul(const double[::1] a, const double[::1] b, double[::1] r):
+    if len(a) != len(r) or len(b)!=len(r):
+        raise BufferError("Different buffer lengths")
+    cy_vdMul(len(a), &a[0], &b[0], &r[0])
 
 
 

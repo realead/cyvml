@@ -48,6 +48,11 @@ class CimportCyvmlTester(unittest.TestCase):
       vml.cy_vdAtan(1,&x,&x)
       self.assertAlmostEqual(x, np.pi/4)
 
+    def test_vdMul(self):
+      cdef double x = 2.0
+      vml.cy_vdMul(1,&x,&x,&x)
+      self.assertAlmostEqual(x, 4)
+
 
 # should be last...
     def test_get_set_threads(self):

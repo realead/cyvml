@@ -20,3 +20,5 @@ cdef void cy_vdTan(long long int n, const double *x, double *y)
 cdef void cy_vdAcos(long long int n, const double *x, double *y)
 cdef void cy_vdAsin(long long int n, const double *x, double *y)
 cdef void cy_vdAtan(long long int n, const double *x, double *y)
+
+cdef void cy_vdMul(long long int n, const double *a, double *b, double* r)
