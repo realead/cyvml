@@ -76,6 +76,10 @@ Once cyvml is installed, the scripts from `tests/experiments` can be used.
 
 The cost of calling `cy_get_vml_max_num_threads` followed by two `cy_set_vml_num_threads` (which corresponds to querying the current state, setting it to a new number and restoring) is about 100 ns (see `cyvml.onoff_multithreading`).
 
+#### costs of `cy_mkl_set_num_threads_local` 
+
+Due to the signature only two calls are needed to set/reset local number. This approach is almost twice as fast as the approach with `cy_get_vml_max_num_threads`.
+
 #### costs of  setting/getting mode:
 
    Call of `vmlSetMode` has cost of about 50 ns.

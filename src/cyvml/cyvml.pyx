@@ -12,9 +12,13 @@ cdef extern from *:
     int get_vml_max_num_threads(void){
         return MKL_Domain_Get_Max_Threads(MKL_VML);
     }
+   
+    int MKL_Set_Num_Threads_Local(int nth);
+
     """
     int set_vml_num_threads(int nth)
     int get_vml_max_num_threads()
+    int MKL_Set_Num_Threads_Local(int nth)
 
 
 cdef int cy_set_vml_num_threads(int nth):
@@ -27,6 +31,11 @@ cdef int cy_get_vml_max_num_threads():
 def py_get_vml_max_num_threads():
     return cy_get_vml_max_num_threads()
 
+cdef int cy_mkl_set_num_threads_local(int nth):
+    return MKL_Set_Num_Threads_Local(nth)
+def py_mkl_set_num_threads_local(int nth):
+    return cy_mkl_set_num_threads_local(nth)
+
 #testing overhead:
 def onoff_multithreading(int n, int nthreads=5):
     cdef int orig = cy_get_vml_max_num_threads()
@@ -37,6 +46,15 @@ def onoff_multithreading(int n, int nthreads=5):
         cy_set_vml_num_threads(old);
     cy_set_vml_num_threads(orig);
 
+
+#testing overhead:
+def onoff_multithreading_local(int n, int nthreads=5):
+    cdef int orig = cy_mkl_set_num_threads_local(3)
+    cdef int i, old
+    for i in range(n):
+        old = cy_mkl_set_num_threads_local(1);
+        cy_mkl_set_num_threads_local(old);
+    cy_mkl_set_num_threads_local(orig);
 
 
 #
@@ -106,11 +124,19 @@ cdef extern from *:
     void  vdLn(MKL_INT n, const double *x, double *y);
     void  vdCos(MKL_INT n, const double *x, double *y);
     void  vdSin(MKL_INT n, const double *x, double *y);
+    void  vdTan(MKL_INT n, const double *x, double *y);
+    void  vdAcos(MKL_INT n, const double *x, double *y);
+    void  vdAsin(MKL_INT n, const double *x, double *y);
+    void  vdAtan(MKL_INT n, const double *x, double *y);
     """
     void vdExp(long long int n, const double *x, double *y)
     void vdLn(long long int n, const double *x, double *y)
     void vdSin(long long int n, const double *x, double *y)
     void vdCos(long long int n, const double *x, double *y)
+    void vdTan(long long int n, const double *x, double *y)
+    void vdAsin(long long int n, const double *x, double *y)
+    void vdAcos(long long int n, const double *x, double *y)
+    void vdAtan(long long int n, const double *x, double *y)
 
 
 cdef void cy_vdExp(long long int n, const double *x, double *y):
@@ -140,6 +166,34 @@ def py_vdSin(const double[::1] x, double[::1] y):
     if len(x) != len(y):
         raise BufferError("Different buffer lengths")
     cy_vdSin(len(x), &x[0], &y[0])
+
+cdef void cy_vdTan(long long int n, const double *x, double *y):
+    vdTan(n,x,y)
+def py_vdTan(const double[::1] x, double[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vdTan(len(x), &x[0], &y[0])
+
+cdef void cy_vdAcos(long long int n, const double *x, double *y):
+    vdAcos(n,x,y)
+def py_vdAcos(const double[::1] x, double[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vdAcos(len(x), &x[0], &y[0])
+
+cdef void cy_vdAsin(long long int n, const double *x, double *y):
+    vdAsin(n,x,y)
+def py_vdAsin(const double[::1] x, double[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vdAsin(len(x), &x[0], &y[0])
+
+cdef void cy_vdAtan(long long int n, const double *x, double *y):
+    vdAtan(n,x,y)
+def py_vdAtan(const double[::1] x, double[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vdAtan(len(x), &x[0], &y[0])
 
 
 
