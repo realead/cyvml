@@ -50,9 +50,62 @@ def noerror_impact():
             equality_check = None,
             )
 
+def parallelization_impact():
+    def acos(x):
+        vml.py_vdAcos(x,x)
+    def cos(x):
+        vml.py_vdCos(x,x)
+
+    def sin(x):
+        vml.py_vdSin(x,x)
+    def asin(x):
+        vml.py_vdAsin(x,x)
+
+    def exp(x):
+        vml.py_vdExp(x,x)
+    def ln(x):
+        vml.py_vdLn(x,x)
+
+    def mul(x):
+        vml.py_vdMul(x,x,x)
+
+    def tan(x):
+        vml.py_vdTan(x,x)
+    def atan(x):
+        vml.py_vdAtan(x,x)
+
+        
+
+    perfplot.show(
+            setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                sin, cos,
+                ],
+            logx=False,
+            logy=False,
+            title = "sin, cos",
+            xlabel='len(vec)',
+            equality_check = None,
+            )
+
+    perfplot.show(
+            setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                asin, acos,
+                ],
+            logx=False,
+            logy=False,
+            title = "asin, acos",
+            xlabel='len(vec)',
+            equality_check = None,
+            )
+
 #main:
 #service_function_costs()
-noerror_impact()
+#noerror_impact()
+parallelization_impact()
 
 
 

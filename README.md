@@ -88,7 +88,29 @@ Due to the signature only two calls are needed to set/reset local number. This a
 
    The costs for functions which have to set error (like acos(2.0)) are quite high, all above when calculation runs in parallel - up to factor 50! Setting error mode to `PY_VML_ERRMODE_ERRNO`, i.e. `VML_ERRMODE_ERRNO` - no error reporting mitigate the impact - it becomes only 2 times slower.
 
-![1](data/acos.png)
+![1](img/acos.png)
+
+#### switching to multi-threading (for doubles)
+
+Depending on the function MKL chooses to run in parallel, depending on the size of the vector:
+
+Function    | multithreading
+--------------------------
+cos, sin    |  5000-6000
+acos, asin  |  4000-5000
+tan, atan   |  2000-3000
+exp, ln     |  7000-8000
+mul         |  never?
+
+Here are the runtime:
+
+![2](img/par_tan_vs_atan.png)
+
+![3](img/par_sin_cos.png)
+
+![4](img/par_asin_acos.png)
+
+![5](img/par_exp_ln_mul.png)
 
 ## Testing
 
