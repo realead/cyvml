@@ -238,13 +238,35 @@ def parallelization_impact_complex():
 
 
 
+def expimag_sincos():
+    def expimag(x):
+        vml.py_vzExp(x[0],x[1])
+    def sincos(x):
+        vml.py_vdSinCos(x[2],x[3],x[4])
+    
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.complex128)+0.25j, np.zeros(n, dtype=np.complex128)+0.25, 
+                               np.zeros(n, dtype=np.float64)+0.25, np.zeros(n, dtype=np.float64)+0.25, np.zeros(n, dtype=np.float64)+0.25],
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                expimag, sincos
+                ],
+            logx=False,
+            logy=False,
+            title = "sincos vs expimag",
+            xlabel='len(vec)',
+            equality_check = None,
+            ) 
+
+
 #main:
 #service_function_costs()
 #noerror_impact()
 #parallelization_impact()
 #sincos()
 #complex_cos()
-parallelization_impact_complex()
+#parallelization_impact_complex()
+expimag_sincos()
 
 
 

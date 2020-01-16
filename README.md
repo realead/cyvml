@@ -152,6 +152,14 @@ Here are the runtimes, where knick means that the multi-threading is used:
 
 doesn't exist.
 
+#### exp(j*x) vs cos(x)+sin(x)*j
+
+ `exp(jx)` for real `x` can be calculated either with `vzExp` or with `vdSinCos`.
+
+ The second variant is about 3 times faster and would be still 2 times faster if `vdSin`+`vdCos` are used.
+
+![2](img/par_expimag_sincos.png)
+
 ## Testing
 
 For testing of the local version run:
