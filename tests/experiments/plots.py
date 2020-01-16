@@ -52,27 +52,27 @@ def noerror_impact():
 
 def parallelization_impact():
     def acos(x):
-        vml.py_vdAcos(x,x)
+        vml.py_vdAcos(x[0],x[1])
     def cos(x):
-        vml.py_vdCos(x,x)
+        vml.py_vdCos(x[0],x[1])
 
     def sin(x):
-        vml.py_vdSin(x,x)
+        vml.py_vdSin(x[0],x[1])
     def asin(x):
-        vml.py_vdAsin(x,x)
+        vml.py_vdAsin(x[0],x[1])
 
     def exp(x):
-        vml.py_vdExp(x,x)
+        vml.py_vdExp(x[0],x[1])
     def ln(x):
-        vml.py_vdLn(x,x)
+        vml.py_vdLn(x[0],x[1])
 
     def mul(x):
-        vml.py_vdMul(x,x,x)
+        vml.py_vdMul(x[0],x[1],x)
 
     def tan(x):
-        vml.py_vdTan(x,x)
+        vml.py_vdTan(x[0],x[1])
     def atan(x):
-        vml.py_vdAtan(x,x)
+        vml.py_vdAtan(x[0],x[1])
 
     perfplot.show(
             setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
@@ -174,13 +174,77 @@ def complex_cos():
             equality_check = None,
             )
 
+def parallelization_impact_complex():
+    def acos(x):
+        vml.py_vzAcos(x[0],x[1])
+    def cos(x):
+        vml.py_vzCos(x[0],x[1])
+
+    def sin(x):
+        vml.py_vzSin(x[0],x[1])
+    def asin(x):
+        vml.py_vzAsin(x[0],x[1])
+
+    def exp(x):
+        vml.py_vzExp(x[0],x[1])
+    def ln(x):
+        vml.py_vzLn(x[0],x[1])
+
+    def mul(x):
+        vml.py_vzMul(x[0],x[0],x[1])
+
+    def tan(x):
+        vml.py_vzTan(x[0],x[1])
+    def atan(x):
+        vml.py_vzAtan(x[0],x[1])
+
+
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.complex128)+0.25+0.25j, np.zeros(n, dtype=np.complex128)+0.25+0.25j],
+            n_range=list(range(10, 200, 10)),
+            kernels=[
+                tan, atan
+                ],
+            logx=False,
+            logy=False,
+            title = "tan, atan",
+            xlabel='len(vec)',
+            equality_check = None,
+            )  
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.complex128)+0.25+0.25j,np.zeros(n, dtype=np.complex128)+0.25+0.25j],
+            n_range=list(range(100, 3000, 300)),
+            kernels=[
+                exp, ln, mul
+                ],
+            logx=False,
+            logy=False,
+            title = "exp, ln, mul",
+            xlabel='len(vec)',
+            equality_check = None,
+            )    
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.complex128)+0.25+0.25j, np.zeros(n, dtype=np.complex128)+0.25+0.25j],
+            n_range=list(range(10, 200, 10)),
+            kernels=[
+                sin, cos, asin, acos
+                ],
+            logx=False,
+            logy=False,
+            title = "sin, cos, asin, acos",
+            xlabel='len(vec)',
+            equality_check = None,
+            )  
+
+
 
 #main:
 #service_function_costs()
 #noerror_impact()
 #parallelization_impact()
 #sincos()
-complex_cos()
+#complex_cos()
+parallelization_impact_complex()
 
 
 

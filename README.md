@@ -128,6 +128,29 @@ Calculation of complex values is much slower than for doubles - about factor 20!
 
 having values with real or imaginary part being 0.0 helps but only a little and is still much slower than the double version.
 
+#### switching to multi-threading (for complex double)
+
+Depending on the function MKL chooses to run in parallel, depending on the size of the vector:
+
+    Function    | multithreading
+    --------------------------
+    cos, sin    |  ca. 125
+    acos, asin  |  ca. 95
+    tan, atan   |  ca. 100
+    exp, ln     |  ca. 750,ca 1200
+    mul         |  2000-2500
+
+Here are the runtimes, where knick means that the multi-threading is used:
+
+![2](img/par_tan_vs_atan_complex.png)
+
+![3](img/par_sin_cos_complex.png)
+
+![5](img/par_exp_ln_mul_complex.png)
+
+#### sincos for complex
+
+doesn't exist.
 
 ## Testing
 
