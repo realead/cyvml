@@ -146,12 +146,41 @@ def sincos():
             equality_check = None,
             )
 
+def complex_cos():
+    def real_cos(x):
+        vml.py_vdCos(x[0],x[5])
+    def complex_cos(x):
+        vml.py_vzCos(x[1],x[4])
+    def complex_noimag_cos(x):
+        vml.py_vzCos(x[2],x[4])
+    def complex_noreal_cos(x):
+        vml.py_vzCos(x[3],x[4])
+
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.float64)+0.25, 
+                               np.zeros(n, dtype=np.complex128)+(0.25+.25j),                        
+                               np.zeros(n, dtype=np.complex128)+0.25,
+                               np.zeros(n, dtype=np.complex128)+0.25j,
+                               np.zeros(n, dtype=np.complex128)+0.25j,
+                               np.zeros(n, dtype=np.float64)+0.25],
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                real_cos, complex_cos, complex_noimag_cos, complex_noreal_cos
+                ],
+            logx=True,
+            logy=True,
+            title = "real vs. complex cos",
+            xlabel='len(vec)',
+            equality_check = None,
+            )
+
 
 #main:
 #service_function_costs()
 #noerror_impact()
 #parallelization_impact()
-sincos()
+#sincos()
+complex_cos()
 
 
 

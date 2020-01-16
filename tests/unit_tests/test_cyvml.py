@@ -69,6 +69,12 @@ class cyvmlTester(unittest.TestCase):
       vml.py_vdMul(x,y,r)
       self.assertAlmostEqual(r[0], 4.0)
 
+   def test_vzCos(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzCos(x,y)
+      self.assertAlmostEqual(y[0], 0.83373003-0.98889771j)
+
 
 
 # should be last...

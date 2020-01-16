@@ -120,6 +120,15 @@ Function `vdSinCos` calculates sin and cos in one go => there must be some syner
 
 Also multithreading kicks in between 3000-4000 elements.
 
+#### complex cos
+
+Calculation of complex values is much slower than for doubles - about factor 20!
+
+![7](img/complex_cos.png)
+
+having values with real or imaginary part being 0.0 helps but only a little and is still much slower than the double version.
+
+
 ## Testing
 
 For testing of the local version run:

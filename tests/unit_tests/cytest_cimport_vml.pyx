@@ -61,6 +61,10 @@ class CimportCyvmlTester(unittest.TestCase):
       vml.cy_vdMul(1,&x,&x,&x)
       self.assertAlmostEqual(x, 4)
 
+    def test_cimport_vzCos(self):
+        cdef double complex x = 1+1j
+        vml.cy_vzCos(1, &x, &x)
+        self.assertAlmostEqual(x, 0.83373003-0.98889771j)
 
 # should be last...
     def test_get_set_threads(self):

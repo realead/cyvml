@@ -24,3 +24,7 @@ cdef void cy_vdAtan(long long int n, const double *x, double *y)
 cdef void cy_vdSinCos(long long int n, const double *a, double *r1, double* r2)
 
 cdef void cy_vdMul(long long int n, const double *a, const double *b, double* r)
+
+
+#complex functions:
+cdef void cy_vzCos(long long int n, const double complex* a, double complex* r)

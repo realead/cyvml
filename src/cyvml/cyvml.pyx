@@ -214,4 +214,27 @@ def py_vdSinCos(const double[::1] a, double[::1] r1, double[::1] r2):
     cy_vdSinCos(len(a), &a[0], &r1[0], &r2[0])
 
 
+### complex functions:
 
+cdef extern from *:
+    """
+    /* Intel(R) MKL Complex type for double precision */
+    #ifndef MKL_Complex16
+    typedef
+    struct _MKL_Complex16 {
+        double real;
+        double imag;
+    } MKL_Complex16;
+    #endif
+    void vzCos(const MKL_INT n, const MKL_Complex16* a, MKL_Complex16* r);
+    """
+    struct MKL_Complex16:
+        pass
+    void vzCos(long long int n, const MKL_Complex16* a, MKL_Complex16* r)
+
+cdef void cy_vzCos(long long int n, const double complex* a, double complex* r):
+    vzCos(n,<const MKL_Complex16*>a, <MKL_Complex16*>r)
+def py_vzCos(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzCos(len(x), &x[0], &y[0])
