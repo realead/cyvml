@@ -48,6 +48,14 @@ class CimportCyvmlTester(unittest.TestCase):
       vml.cy_vdAtan(1,&x,&x)
       self.assertAlmostEqual(x, np.pi/4)
 
+    def test_vdSinCos(self):
+      cdef double x = 0.0
+      cdef double r1 = 42.0
+      cdef double r2 = 42.0
+      vml.cy_vdSinCos(1,&x,&r1,&r2)
+      self.assertAlmostEqual(r1, 0.0)
+      self.assertAlmostEqual(r2, 1.0)
+
     def test_vdMul(self):
       cdef double x = 2.0
       vml.cy_vdMul(1,&x,&x,&x)

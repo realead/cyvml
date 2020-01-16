@@ -74,7 +74,31 @@ def parallelization_impact():
     def atan(x):
         vml.py_vdAtan(x,x)
 
-        
+    perfplot.show(
+            setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                tan, atan 
+                ],
+            logx=False,
+            logy=False,
+            title = "tan vs atan",
+            xlabel='len(vec)',
+            equality_check = None,
+            )
+
+    perfplot.show(
+            setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                exp, ln, mul  
+                ],
+            logx=False,
+            logy=False,
+            title = "exp, ln, mul",
+            xlabel='len(vec)',
+            equality_check = None,
+            )    
 
     perfplot.show(
             setup= lambda n : np.zeros(n, dtype=np.float64)+0.25,
@@ -102,10 +126,32 @@ def parallelization_impact():
             equality_check = None,
             )
 
+def sincos():
+    def sincos(x):
+        vml.py_vdSinCos(x[0],x[1],x[2])
+    def sin_and_cos(x):
+        vml.py_vdCos(x[0],x[1])
+        vml.py_vdSin(x[0],x[2])
+
+    perfplot.show(
+            setup= lambda n : [np.zeros(n, dtype=np.float64)+0.25, np.zeros(n, dtype=np.float64)+0.25, np.zeros(n, dtype=np.float64)+0.25],
+            n_range=list(range(1000, 10000, 1000)),
+            kernels=[
+                sincos, sin_and_cos 
+                ],
+            logx=False,
+            logy=False,
+            title = "sincos vs sin+cos",
+            xlabel='len(vec)',
+            equality_check = None,
+            )
+
+
 #main:
 #service_function_costs()
 #noerror_impact()
-parallelization_impact()
+#parallelization_impact()
+sincos()
 
 
 

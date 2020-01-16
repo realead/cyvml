@@ -54,12 +54,20 @@ class cyvmlTester(unittest.TestCase):
       vml.py_vdLn(x,y)
       self.assertAlmostEqual(y[0], 0.0)
 
+   def test_vdSinCos(self):
+      x = np.array([0.0], dtype=np.float64)
+      r1 = np.array([42.0], dtype=np.float64)
+      r2 = np.array([42.0], dtype=np.float64)
+      vml.py_vdSinCos(x,r1,r2)
+      self.assertAlmostEqual(r1[0], 0.0)
+      self.assertAlmostEqual(r2[0], 1.0)
+
    def test_vdMul(self):
       x = np.array([2.0], dtype=np.float64)
       y = np.array([2.0], dtype=np.float64)
       r = np.array([42.0], dtype=np.float64)
       vml.py_vdMul(x,y,r)
-      self.assertAlmostEqual(x,y,r)
+      self.assertAlmostEqual(r[0], 4.0)
 
 
 

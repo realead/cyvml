@@ -112,6 +112,14 @@ Here are the runtimes, where knick means that the multi-threading is used:
 
 ![5](img/par_exp_ln_mul.png)
 
+#### performance of sincos vs sin & cos
+
+Function `vdSinCos` calculates sin and cos in one go => there must be some synergies. And there are - `vdSinCos` is about 33% faster than `Sin` and `Cos` together:
+
+![6](img/sincos_vs_sin+cos.png)
+
+Also multithreading kicks in between 3000-4000 elements.
+
 ## Testing
 
 For testing of the local version run:
