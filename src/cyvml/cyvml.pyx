@@ -226,15 +226,89 @@ cdef extern from *:
         double imag;
     } MKL_Complex16;
     #endif
-    void vzCos(const MKL_INT n, const MKL_Complex16* a, MKL_Complex16* r);
+    void  vzExp(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzLn(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzCos(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzSin(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzTan(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzAcos(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzAsin(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzAtan(MKL_INT n, const MKL_Complex16 *x, MKL_Complex16 *y);
+    void  vzMul(MKL_INT n, const MKL_Complex16 *a, const MKL_Complex16 *b, MKL_Complex16* r);
     """
     struct MKL_Complex16:
         pass
-    void vzCos(long long int n, const MKL_Complex16* a, MKL_Complex16* r)
+    void vzExp(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzLn(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzSin(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzCos(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzTan(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzAsin(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzAcos(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzAtan(long long int n, const MKL_Complex16 *x, MKL_Complex16 *y)
+    void vzMul(long long int n, const MKL_Complex16 *a, const MKL_Complex16 *b, MKL_Complex16* r)
 
-cdef void cy_vzCos(long long int n, const double complex* a, double complex* r):
-    vzCos(n,<const MKL_Complex16*>a, <MKL_Complex16*>r)
+
+cdef void cy_vzExp(long long int n, const double complex *x, double complex *y):
+    vzExp(n,<const MKL_Complex16*>x,<MKL_Complex16*>y)
+def py_vzExp(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzExp(len(x), &x[0], &y[0])
+
+cdef void cy_vzLn(long long int n, const double complex *x, double complex *y):
+    vzLn(n,<const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzLn(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzLn(len(x), &x[0], &y[0])
+
+cdef void cy_vzCos(long long int n, const double complex *x, double complex *y):
+    vzCos(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
 def py_vzCos(const double complex[::1] x, double complex[::1] y):
     if len(x) != len(y):
         raise BufferError("Different buffer lengths")
     cy_vzCos(len(x), &x[0], &y[0])
+
+cdef void cy_vzSin(long long int n, const double complex *x, double complex *y):
+    vzSin(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzSin(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzSin(len(x), &x[0], &y[0])
+
+cdef void cy_vzTan(long long int n, const double complex *x, double complex *y):
+    vzTan(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzTan(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzTan(len(x), &x[0], &y[0])
+
+cdef void cy_vzAcos(long long int n, const double complex *x, double complex *y):
+    vzAcos(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzAcos(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzAcos(len(x), &x[0], &y[0])
+
+cdef void cy_vzAsin(long long int n, const double complex *x, double complex *y):
+    vzAsin(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzAsin(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzAsin(len(x), &x[0], &y[0])
+
+cdef void cy_vzAtan(long long int n, const double complex *x, double complex *y):
+    vzAtan(n, <const MKL_Complex16*>x, <MKL_Complex16*>y)
+def py_vzAtan(const double complex[::1] x, double complex[::1] y):
+    if len(x) != len(y):
+        raise BufferError("Different buffer lengths")
+    cy_vzAtan(len(x), &x[0], &y[0])
+
+cdef void cy_vzMul(long long int n, const double complex *a, const double complex *b, double complex *r):
+    vzMul(n, <const MKL_Complex16*>a, <MKL_Complex16*>b, <MKL_Complex16*>r)
+def py_vzMul(const double complex[::1] a, const double complex[::1] b, double complex[::1] r):
+    if len(a) != len(r) or len(b)!=len(r):
+        raise BufferError("Different buffer lengths")
+    cy_vzMul(len(a), &a[0], &b[0], &r[0])
+

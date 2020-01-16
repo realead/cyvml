@@ -66,6 +66,46 @@ class CimportCyvmlTester(unittest.TestCase):
         vml.cy_vzCos(1, &x, &x)
         self.assertAlmostEqual(x, 0.83373003-0.98889771j)
 
+    def test_cimport_vzSin(self):
+        cdef double complex x = 1+1j
+        vml.cy_vzSin(1, &x, &x)
+        self.assertAlmostEqual(x, 1.29845758+0.63496391j)
+
+    def test_cimport_vzExp(self):
+        cdef double complex x = 1+1j
+        vml.cy_vzExp(1, &x, &x)
+        self.assertAlmostEqual(x, 1.46869394+2.28735529j)
+
+    def test_cimport_vzLn(self):
+        cdef double complex x = 1+1j
+        vml.cy_vzLn(1, &x, &x)
+        self.assertAlmostEqual(x, 0.34657359+0.78539816j)
+
+    def test_vzTan(self):
+      cdef double complex x = 1+1j
+      vml.cy_vzTan(1, &x, &x)
+      self.assertAlmostEqual(x, 0.27175259+1.08392333j)
+
+    def test_vzAcos(self):
+      cdef double complex x = 1+1j
+      vml.cy_vzAcos(1,&x,&x)
+      self.assertAlmostEqual(x, 0.90455689-1.06127506j)
+
+    def test_vzAsin(self):
+      cdef double complex x = 1+1j
+      vml.cy_vzAsin(1, &x, &x)
+      self.assertAlmostEqual(x, 0.66623943+1.06127506j)
+
+    def test_vzAtan(self):
+      cdef double complex x = 1+1j
+      vml.cy_vzAtan(1,&x,&x)
+      self.assertAlmostEqual(x, 1.01722197+0.40235948j)
+
+    def test_vzMul(self):
+      cdef double complex x = 2+1j
+      vml.cy_vzMul(1,&x,&x,&x)
+      self.assertAlmostEqual(x, 3+4j)
+
 # should be last...
     def test_get_set_threads(self):
         self.assertEqual(vml.cy_set_vml_num_threads(1), 1)

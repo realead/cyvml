@@ -75,6 +75,56 @@ class cyvmlTester(unittest.TestCase):
       vml.py_vzCos(x,y)
       self.assertAlmostEqual(y[0], 0.83373003-0.98889771j)
 
+   def test_vzSin(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzSin(x,y)
+      self.assertAlmostEqual(y[0], 1.29845758+0.63496391j)
+
+   def test_vzTan(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzTan(x,y)
+      self.assertAlmostEqual(y[0], 0.27175259+1.08392333j)
+
+   def test_vzAcos(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzAcos(x,y)
+      self.assertAlmostEqual(y[0], 0.90455689-1.06127506j)
+
+   def test_vzAsin(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzAsin(x,y)
+      self.assertAlmostEqual(y[0], 0.66623943+1.06127506j)
+
+   def test_vzAtan(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzAtan(x,y)
+      self.assertAlmostEqual(y[0], 1.01722197+0.40235948j)
+
+
+   def test_vzExp(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzExp(x,y)
+      self.assertAlmostEqual(y[0], 1.46869394+2.28735529j)
+
+   def test_vzLn(self):
+      x = np.array([1+1j], dtype=np.complex128)
+      y = np.array([42.42], dtype=np.complex128)
+      vml.py_vzLn(x,y)
+      self.assertAlmostEqual(y[0], 0.34657359+0.78539816j)
+
+   def test_vzMul(self):
+      x = np.array([2.0+1j], dtype=np.complex128)
+      y = np.array([2.0+1j], dtype=np.complex128)
+      r = np.array([42.0], dtype=np.complex128)
+      vml.py_vzMul(x,y,r)
+      self.assertAlmostEqual(r[0], 3+4j)
+
 
 
 # should be last...
