@@ -84,6 +84,13 @@ Due to the signature only two calls are needed to set/reset local number. This a
 
    Call of `vmlSetMode` has cost of about 50 ns.
 
+#### costs of  setting/getting dynamic:
+
+   Call of `mkl_get/set_dynamic` has cost of about 20 ns.
+
+![1](img/service_functions.png)
+
+
 #### no error reporting
 
    The costs for functions which have to set error (like acos(2.0)) are quite high, all above when calculation runs in parallel - up to factor 50! Setting error mode to `PY_VML_ERRMODE_ERRNO`, i.e. `VML_ERRMODE_ERRNO` - no error reporting mitigate the impact - it becomes only 2 times slower.

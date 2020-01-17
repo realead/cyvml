@@ -128,6 +128,14 @@ class cyvmlTester(unittest.TestCase):
 
 
 # should be last...
+   def test_get_set_dynamic(self):
+      orig =  vml.py_mkl_get_dynamic()
+      self.assertTrue(orig>0)
+      vml.py_mkl_set_dynamic(0)
+      self.assertEqual(vml.py_mkl_get_dynamic(), 0)
+      vml.py_mkl_set_dynamic(orig)
+      self.assertEqual(vml.py_mkl_get_dynamic(), orig)
+
    def test_get_set_threads(self):
       self.assertEqual(vml.py_set_vml_num_threads(1), 1)
       self.assertEqual(vml.py_get_vml_max_num_threads(), 1)

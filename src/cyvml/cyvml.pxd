@@ -8,6 +8,9 @@ cdef int cy_get_vml_max_num_threads()
 cdef int cy_vmlSetMode(unsigned int newmode)
 cdef int cy_vmlGetMode()
 
+cdef void cy_mkl_set_dynamic(int bool_mkl_dynamic)
+cdef int  cy_mkl_get_dynamic()
+
 
 
 #other functions:

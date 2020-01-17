@@ -106,7 +106,17 @@ class CimportCyvmlTester(unittest.TestCase):
       vml.cy_vzMul(1,&x,&x,&x)
       self.assertAlmostEqual(x, 3+4j)
 
+
+
 # should be last...
+    def test_get_set_dynamic(self):
+        cdef int orig =  vml.cy_mkl_get_dynamic()
+        self.assertTrue(orig>0)
+        vml.cy_mkl_set_dynamic(0)
+        self.assertEqual(vml.cy_mkl_get_dynamic(), 0)
+        vml.cy_mkl_set_dynamic(orig)
+        self.assertEqual(vml.cy_mkl_get_dynamic(), orig)
+
     def test_get_set_threads(self):
         self.assertEqual(vml.cy_set_vml_num_threads(1), 1)
         self.assertEqual(vml.cy_get_vml_max_num_threads(), 1)

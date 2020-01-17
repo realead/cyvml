@@ -12,9 +12,10 @@ def service_function_costs():
             kernels=[
                 vml.onoff_multithreading,
                 vml.onoff_multithreading_local,
-                vml.onoff_mode        
+                vml.onoff_mode,
+                vml.onoff_mkl_dynamic,     
                 ],
-            labels=["(2*set+1*get) thread number", "2*set local thread number", "2*set_mode"],
+            labels=["(2*set+1*get) thread number", "2*set local thread number", "2*set_mode", "(2*set+1*get) mkl_dynamic"],
             logx=True,
             logy=True,
             title = "service functions",
@@ -260,13 +261,13 @@ def expimag_sincos():
 
 
 #main:
-#service_function_costs()
+service_function_costs()
 #noerror_impact()
 #parallelization_impact()
 #sincos()
 #complex_cos()
 #parallelization_impact_complex()
-expimag_sincos()
+#expimag_sincos()
 
 
 

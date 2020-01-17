@@ -15,11 +15,24 @@ cdef extern from *:
    
     int MKL_Set_Num_Threads_Local(int nth);
 
+    void    MKL_Set_Dynamic(int bool_MKL_DYNAMIC);
+    int     MKL_Get_Dynamic(void);
     """
     int set_vml_num_threads(int nth)
     int get_vml_max_num_threads()
     int MKL_Set_Num_Threads_Local(int nth)
+    void MKL_Set_Dynamic(int bool_MKL_DYNAMIC)
+    int  MKL_Get_Dynamic()
 
+cdef void cy_mkl_set_dynamic(int bool_mkl_dynamic):
+    MKL_Set_Dynamic(bool_mkl_dynamic)
+def py_mkl_set_dynamic(int bool_mkl_dynamic):
+    cy_mkl_set_dynamic(bool_mkl_dynamic)
+
+cdef int cy_mkl_get_dynamic():
+    return MKL_Get_Dynamic()
+def py_mkl_get_dynamic():
+    return cy_mkl_get_dynamic()
 
 cdef int cy_set_vml_num_threads(int nth):
     return set_vml_num_threads(nth)
@@ -35,6 +48,7 @@ cdef int cy_mkl_set_num_threads_local(int nth):
     return MKL_Set_Num_Threads_Local(nth)
 def py_mkl_set_num_threads_local(int nth):
     return cy_mkl_set_num_threads_local(nth)
+
 
 #testing overhead:
 def onoff_multithreading(int n, int nthreads=5):
@@ -55,6 +69,17 @@ def onoff_multithreading_local(int n, int nthreads=5):
         old = cy_mkl_set_num_threads_local(1);
         cy_mkl_set_num_threads_local(old);
     cy_mkl_set_num_threads_local(orig);
+
+
+#testing overhead:
+def onoff_mkl_dynamic(int n, int val=0):
+    cdef int orig = cy_mkl_get_dynamic()
+    cdef int i, old
+    for i in range(n):
+        old = cy_mkl_get_dynamic();
+        cy_mkl_set_dynamic(val)
+        cy_mkl_set_dynamic(old)
+    cy_mkl_set_dynamic(orig);
 
 
 #
