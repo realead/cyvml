@@ -11,7 +11,7 @@ On Windows one needs to provide path to *.lib-files even for Anaconda-Distributi
 
 For Anaconda distribution
 
-   conda install mkl-devel
+    conda install mkl-devel
 
 might be the easiest solution to get all what is needed.
 
